@@ -39,9 +39,10 @@ def QA_SU_save_stocks_news_day_top100(client=DATABASE):
     stock_list = QA_fetch_get_stock_list().code.unique().tolist()
 
     for index, code in enumerate(stock_list):
-        summary_msg = 'The {} of Total {}'.format(index, len(stock_list))
-        progress_msg = 'DOWNLOAD PROGRESS {} '.format(
-            str(index / len(stock_list) * 100)[0:4] + '%')
+        summary_msg = "The {} of Total {}".format(index, len(stock_list))
+        progress_msg = "DOWNLOAD PROGRESS {} ".format(
+            str(index / len(stock_list) * 100)[0:4] + "%"
+        )
 
         QA_util_log_info(summary_msg + ". " + progress_msg)
 
@@ -63,7 +64,12 @@ def QA_SU_save_stock_news_day_top100(
         "## Saving news for stock [{}] ({})...".format(code, today)
     )
 
-    stock_news_em_df = ak.stock_news_em(symbol=code)
+    try:
+        stock_news_em_df = ak.stock_news_em(symbol=code)
+    except Exception as e:
+        print(e)
+        print("Will skip")
+        return
 
     stock_news_em_df.rename(
         columns={
