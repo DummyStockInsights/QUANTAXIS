@@ -75,6 +75,8 @@ from QUANTAXIS.QASU.main import (QA_SU_crawl_eastmoney, QA_SU_save_bond_day,
                                  QA_SU_save_single_stock_day,
                                  QA_SU_save_single_stock_min,
                                  QA_SU_save_stock_block, QA_SU_save_stock_day,
+                                 QA_SU_save_stocks_news_day_top100,
+                                 QA_SU_save_stock_news_day_top100,
                                  QA_SU_save_stock_divyield_day,
                                  QA_SU_save_stock_divyield_his,
                                  QA_SU_save_stock_info,
@@ -298,6 +300,8 @@ class CLI(cmd.Cmd):
             命令格式：save single_stock_day  : 保存单个股票日线数据 \n\
             命令格式：save stock_min  : 保存分钟线数据 \n\
             命令格式：save single_stock_min  : 保存单个股票分钟线数据 \n\
+            命令格式：save stock_news  : 保存所有股票新闻(via AKShare) \n\
+            命令格式：save single_stock_news  : 保存单个股票新闻(via AKShare) \n\
             命令格式：save index_day  : 保存指数日线数据 \n\
             命令格式：save single_index_day  : 保存单个指数日线数据 \n\
             命令格式：save index_min  : 保存指数分钟线数据 \n\
@@ -657,6 +661,10 @@ class CLI(cmd.Cmd):
                 QA_SU_save_single_bond_day(arg[1], "tdx")
             elif len(arg) == 2 and arg[0] == "single_bond_min":
                 QA_SU_save_single_bond_min(arg[1], "tdx")
+            elif len(arg) == 1 and arg[0] == "stock_news":
+                QA_SU_save_stocks_news_day_top100()
+            elif len(arg) == 2 and arg[0] == "single_stock_news":
+                QA_SU_save_stock_news_day_top100(arg[1])
             else:
                 for i in arg:
                     if i == "insert_user":

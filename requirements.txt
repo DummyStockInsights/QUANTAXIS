@@ -22,6 +22,7 @@ async_timeout
 IPython
 numba
 tushare
+akshare==1.10.39
 # websocket-client
 statsmodels>=0.12.1
 scipy

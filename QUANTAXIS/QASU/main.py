@@ -30,8 +30,8 @@ from QUANTAXIS.QASU import save_gm as sgm
 from QUANTAXIS.QASU import save_jq as sjq
 from QUANTAXIS.QASU import save_tushare as sts
 from QUANTAXIS.QASU import save_financialfiles
+from QUANTAXIS.QASU import save_akshare as akshare
 from QUANTAXIS.QAUtil import DATABASE, print_used_time
-import time
 
 
 # from QUANTAXIS.QASU import crawl_jrj_financial_reportdate as save_financial_calendar
@@ -122,6 +122,7 @@ def QA_SU_save_future_list(engine, client=DATABASE):
     engine = select_save_engine(engine)
     engine.QA_SU_save_future_list(client=client)
 
+
 def QA_SU_save_single_future_day(code, engine, client=DATABASE, paralleled=False):
     """save single_future_day
 
@@ -137,6 +138,7 @@ def QA_SU_save_single_future_day(code, engine, client=DATABASE, paralleled=False
 
     engine = select_save_engine(engine, paralleled=paralleled)
     engine.QA_SU_save_single_future_day(code=code, client=client)
+
 
 def QA_SU_save_future_day(engine, client=DATABASE):
     """save future_day
@@ -165,6 +167,7 @@ def QA_SU_save_future_day_all(engine, client=DATABASE):
     engine = select_save_engine(engine)
     engine.QA_SU_save_future_day_all(client=client)
 
+
 def QA_SU_save_single_future_min(code, engine, client=DATABASE):
     """save single_future_min
 
@@ -177,6 +180,7 @@ def QA_SU_save_single_future_min(code, engine, client=DATABASE):
 
     engine = select_save_engine(engine)
     engine.QA_SU_save_single_future_min(code=code, client=client)
+
 
 def QA_SU_save_future_min(engine, client=DATABASE):
     """save future_min
@@ -242,9 +246,9 @@ def QA_SU_save_single_stock_day(code, engine, client=DATABASE, paralleled=False)
 def QA_SU_save_option_contract_list(engine, client=DATABASE):
     '''
 
-    :param engine: 
-    :param client: 
-    :return: 
+    :param engine:
+    :param client:
+    :return:
     '''
     engine = select_save_engine(engine)
     engine.QA_SU_save_option_contract_list(client=client)
@@ -292,7 +296,6 @@ def QA_SU_save_option_50etf_min(engine, client=DATABASE):
     '''
     engine = select_save_engine(engine)
     engine.QA_SU_save_option_50etf_min(client=client)
-
 
 
 def QA_SU_save_option_300etf_day(engine, client=DATABASE):
@@ -379,7 +382,6 @@ def QA_SU_save_index_transaction(engine, client=DATABASE):
     engine.QA_SU_save_index_transaction(client=client)
 
 
-
 def QA_SU_save_single_stock_min(code, engine, client=DATABASE):
     """save stock_min
 
@@ -392,6 +394,28 @@ def QA_SU_save_single_stock_min(code, engine, client=DATABASE):
 
     engine = select_save_engine(engine)
     engine.QA_SU_save_single_stock_min(code=code, client=client)
+
+
+def QA_SU_save_stocks_news_day_top100(engine="akshare", client=DATABASE):
+    engine = select_save_engine(engine)
+
+    engine.QA_SU_save_stocks_news_day_top100(client=client)
+
+
+def QA_SU_save_stock_news_day_top100(
+        code: str, engine="akshare", client=DATABASE):
+    """save a stock's news for current day via AKShare from 东方财富.
+    target URL is http://so.eastmoney.com/news/s
+
+    Arguments:
+        engine {[type]} -- [description]
+
+    Keyword Arguments:
+        client {[type]} -- [description] (default: {DATABASE})
+    """
+    engine = select_save_engine(engine)
+
+    engine.QA_SU_save_stock_news_day_top100(code=code, client=client)
 
 
 @print_used_time
@@ -560,6 +584,8 @@ def select_save_engine(engine, paralleled=False):
         return sgm
     elif engine in ['jq', 'joinquant']:
         return sjq
+    elif engine in ['ak', 'akshare']:
+        return akshare
     else:
         print(
             'QA Error QASU.main.py call select_save_engine \
