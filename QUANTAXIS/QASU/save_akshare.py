@@ -48,8 +48,6 @@ def QA_SU_save_stocks_news_day_top100(client=DATABASE):
 
         QA_SU_save_stock_news_day_top100(code, client=client)
 
-    print(stock_list)
-
 
 def QA_SU_save_stock_news_day_top100(
     code: str, engine="akshare", client=DATABASE
