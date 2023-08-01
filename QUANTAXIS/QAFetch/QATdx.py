@@ -1333,7 +1333,7 @@ def QA_fetch_get_stock_block(ip=None, port=None):
             set_index('code', drop=False, inplace=False).\
             drop_duplicates()
         if len(df) > 1:
-            data = data.append( df[['code', 'blockname', 'type']].assign(source='tdx') )
+            data = data._append( df[['code', 'blockname', 'type']].assign(source='tdx') )
         return data
     else:
         QA_util_log_info('Wrong with fetch block ')
